@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Investments from './Investments.jsx';
 
 export default function App() {
   useEffect(() => {
@@ -1028,9 +1029,19 @@ export default function App() {
               what’s possible.
             </p>
 
+            <Investments
+              onTotalChange={total => {
+                const initialInput = document.getElementById('initial');
+                initialInput.value = String(total);
+                initialInput.dispatchEvent(
+                  new Event('input', { bubbles: true })
+                );
+              }}
+            />
+
             <div className="field">
               <label htmlFor="initial">
-                Initial savings
+                Initial investments
                 <span className="hint">
                   ₹
                 </span>
@@ -1041,8 +1052,13 @@ export default function App() {
                 type="number"
                 min="0"
                 step="1000"
-                defaultValue="200000"
+                defaultValue="0"
+                readOnly
+                aria-describedby="initialInvestmentsHelp"
               />
+              <small id="initialInvestmentsHelp" className="field-help">
+                Automatically totaled from your bank investments.
+              </small>
             </div>
 
             <div className="field">

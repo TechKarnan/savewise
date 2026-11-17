@@ -7,6 +7,23 @@ main{max-width:1180px;margin:-1px auto 50px;padding:22px 18px}.grid{display:grid
 .section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}.section-head h2{font-size:16px;margin:0}.section-head p{font-size:11px;color:var(--muted);margin:3px 0 0}.seg{display:flex;gap:4px;background:#f0f3f8;padding:4px;border-radius:10px;flex-shrink:0}.seg button{border:0;background:transparent;color:#66748a;border-radius:7px;padding:7px 10px;font-size:11px;font-weight:700;cursor:pointer}.seg button.active{background:#fff;color:#172338;box-shadow:0 1px 4px #1a2b451c}
 .chart-wrap{height:260px;position:relative;width:100%}canvas{width:100%;height:100%;display:block}
 
+.investments{margin:0 0 18px;padding:14px;border:1px solid #e7edf4;border-radius:12px;background:#f8fafc}
+.investments-heading{display:flex;align-items:center;gap:8px}
+.investments h3{margin:0;font-size:13px;color:#24354a}
+.investments-icon{width:26px;height:26px;display:grid;place-items:center;flex:none;border-radius:8px;background:#e1f7ed;color:#087d59}
+.investments-icon svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.investments-sub{margin:3px 0 12px;color:#718096;font-size:11px}
+.investment-fields{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
+.investment-field{margin-bottom:10px}
+.investment-field label{font-size:11px}
+.investment-input{height:38px;display:flex;align-items:center;gap:7px;padding:0 10px;border:1px solid #dce4ee;border-radius:9px;background:#fff;color:#718096;font-size:12px}
+.investment-input:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px #4778e81c}
+.investment-input input{width:100%;height:100%;padding:0;border:0;outline:0;background:transparent;color:var(--ink);font:inherit}
+.investment-input input:focus{box-shadow:none}
+.field-help{display:block;margin-top:5px;color:var(--muted);font-size:10px}
+#initial[readonly]{background:#f5f8fc;font-weight:700;color:#087d59}
+@media(max-width:480px){.investment-fields{grid-template-columns:1fr}}
+
 /* Show a team creating company revenue that flows into savings and compounds. */
 .savings-journey{overflow:hidden;position:relative;margin:2px 0 17px;padding:15px 17px 10px;border:1px solid #dce9df;border-radius:14px;background:linear-gradient(180deg,#f2f8f2 0%,#f8faf5 72%,#edf3e9 100%)}
 .journey-heading{position:relative;z-index:2;display:flex;flex-direction:column;gap:4px}
