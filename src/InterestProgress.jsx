@@ -50,14 +50,14 @@ export default function InterestProgress() {
           valueId="todayInterestValue"
           barId="todayInterestBar"
           detailId="todayInterestDetail"
-          description="Compared with the projected daily interest at the end of your plan."
+          description="Progress shows elapsed time in today's 24-hour day."
         />
         <InterestProgressCard
           title="Cumulative interest this month"
           valueId="cumulativeInterestValue"
           barId="cumulativeInterestBar"
           detailId="cumulativeInterestDetail"
-          description="Interest earned from the 1st of this month through today."
+          description="Progress shows elapsed time from the 1st through this month."
         />
         <InterestProgressCard
           title="Estimated total this month"

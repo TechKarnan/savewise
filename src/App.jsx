@@ -19,6 +19,59 @@ export default function App() {
       return fmt(n);
     };
 
+    function updateTimeProgress() {
+      const now = new Date();
+      const startOfDay = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate()
+      ).getTime();
+      const elapsedToday = (now.getTime() - startOfDay) / 86_400_000;
+      const startOfMonth = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        1
+      ).getTime();
+      const startOfNextMonth = new Date(
+        now.getFullYear(),
+        now.getMonth() + 1,
+        1
+      ).getTime();
+      const elapsedThisMonth =
+        (now.getTime() - startOfMonth) /
+        (startOfNextMonth - startOfMonth);
+
+      const progressItems = [
+        {
+          barId: 'todayInterestBar',
+          detailId: 'todayInterestDetail',
+          percentage: elapsedToday * 100,
+          ariaDescription: '24-hour day elapsed',
+          description: 'of 24 hours elapsed today'
+        },
+        {
+          barId: 'cumulativeInterestBar',
+          detailId: 'cumulativeInterestDetail',
+          percentage: elapsedThisMonth * 100,
+          ariaDescription: 'current month elapsed',
+          description: 'of this month elapsed'
+        }
+      ];
+
+      progressItems.forEach(item => {
+        const percentage = Math.min(100, Math.max(0, item.percentage));
+        const bar = $(item.barId);
+        bar.setAttribute('aria-valuenow', percentage.toFixed(1));
+        bar.setAttribute(
+          'aria-valuetext',
+          percentage.toFixed(1) + '% ' + item.ariaDescription
+        );
+        bar.firstElementChild.style.width = percentage + '%';
+        $(item.detailId).textContent =
+          percentage.toFixed(1) + '% ' + item.description;
+      });
+    }
+
     let interval = 'monthly';
     let model = null;
     let dirty = false;
@@ -582,14 +635,11 @@ export default function App() {
       let todayInterest =
         monthToDateSim.daily[monthToDateSim.daily.length - 1].earned;
       let cumulativeInterest = monthToDateSim.interest;
-      let projectedDailyInterest =
-        sim.daily[sim.daily.length - 1].earned;
       let projectedMonthInterest = fullMonthSim.interest;
 
       updateInterestProgress(
         todayInterest,
         cumulativeInterest,
-        projectedDailyInterest,
         projectedMonthInterest
       );
 
@@ -827,7 +877,6 @@ export default function App() {
       function updateInterestProgress(
         todayInterest,
         cumulativeInterest,
-        projectedDailyInterest,
         projectedMonthInterest
       ) {
         $('monthlyInterestForecastValue').textContent =
@@ -835,37 +884,9 @@ export default function App() {
         $('monthlyInterestForecastDetail').textContent =
           'Estimated for all ' + daysInMonth + ' days of this month.';
 
-        const progressItems = [
-          {
-            valueId: 'todayInterestValue',
-            barId: 'todayInterestBar',
-            detailId: 'todayInterestDetail',
-            value: todayInterest,
-            target: projectedDailyInterest,
-            targetLabel: 'end-of-plan daily estimate'
-          },
-          {
-            valueId: 'cumulativeInterestValue',
-            barId: 'cumulativeInterestBar',
-            detailId: 'cumulativeInterestDetail',
-            value: cumulativeInterest,
-            target: projectedMonthInterest,
-            targetLabel: 'projected interest for this month'
-          }
-        ];
-
-        progressItems.forEach(item => {
-          const percentage = item.target > 0
-            ? Math.min(100, (item.value / item.target) * 100)
-            : 0;
-          const bar = $(item.barId);
-
-          $(item.valueId).textContent = compact(item.value);
-          bar.setAttribute('aria-valuenow', percentage.toFixed(1));
-          bar.firstElementChild.style.width = percentage + '%';
-          $(item.detailId).textContent =
-            percentage.toFixed(1) + '% of your ' + item.targetLabel;
-        });
+        $('todayInterestValue').textContent = compact(todayInterest);
+        $('cumulativeInterestValue').textContent = compact(cumulativeInterest);
+        updateTimeProgress();
       }
 
       if (end >= goal) {
@@ -1058,6 +1079,13 @@ export default function App() {
 
     $('calculationStatus').textContent =
       'Showing default results. Change any input and press Calculate savings to recalculate.';
+
+    const interestProgressTimer = window.setInterval(
+      updateTimeProgress,
+      60_000
+    );
+
+    return () => window.clearInterval(interestProgressTimer);
   }, []);
 
   return (
