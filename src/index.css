@@ -24,6 +24,25 @@ main{max-width:1180px;margin:-1px auto 50px;padding:22px 18px}.grid{display:grid
 #initial[readonly]{background:#f5f8fc;font-weight:700;color:#087d59}
 @media(max-width:480px){.investment-fields{grid-template-columns:1fr}}
 
+.interest-progress{padding:18px}
+.interest-progress .section-head{margin-bottom:16px}
+.interest-progress-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.interest-progress-card{min-width:0;padding:15px;border:1px solid #e7edf4;border-radius:12px;background:#fbfcfe}
+.interest-progress-copy{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.interest-progress-copy h3{margin:0;color:#526176;font-size:12px;font-weight:700}
+.interest-progress-copy strong{color:#087d59;font-size:19px;line-height:1.2;white-space:nowrap}
+.interest-progress-card:nth-child(3){background:#f2fbf6;border-color:#d6eee0}
+.interest-progress-card:nth-child(3) .interest-progress-copy{min-height:42px}
+.interest-progress-card:nth-child(3) .interest-progress-copy strong{font-size:21px}
+.interest-progress-track{height:10px;margin-top:14px;overflow:hidden;border-radius:20px;background:#e8eef4}
+.interest-progress-track span{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,#16a477,#6dd9aa);transition:width .6s ease}
+.interest-progress-card:nth-child(2) .interest-progress-track span{background:linear-gradient(90deg,#4778e8,#8ba8f1)}
+.interest-progress-detail{margin:7px 0 0;color:#718096;font-size:10px}
+.interest-progress-note{margin:13px 0 0;color:#8490a2;font-size:10px;line-height:1.5}
+@media(max-width:760px){.interest-progress-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.interest-progress-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.interest-progress-track span{transition:none}}
+
 /* Show a team creating company revenue that flows into savings and compounds. */
 .savings-journey{overflow:hidden;position:relative;margin:2px 0 17px;padding:15px 17px 10px;border:1px solid #dce9df;border-radius:14px;background:linear-gradient(180deg,#f2f8f2 0%,#f8faf5 72%,#edf3e9 100%)}
 .journey-heading{position:relative;z-index:2;display:flex;flex-direction:column;gap:4px}

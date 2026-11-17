@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Investments from './Investments.jsx';
+import InterestProgress from './InterestProgress.jsx';
 
 export default function App() {
   useEffect(() => {
@@ -73,7 +74,7 @@ export default function App() {
       return false;
     }
 
-    function simulate(days, goalMode = false) {
+    function simulate(days, startDate = new Date()) {
       let initial = Math.max(0, +$('initial').value || 0);
       let c = Math.max(0, +$('contribution').value || 0);
       let freq = $('frequency').value;
@@ -82,7 +83,7 @@ export default function App() {
 
       let per = Math.pow(1 + rate, 1 / 365) - 1;
 
-      let start = new Date();
+      let start = new Date(startDate);
       start.setHours(12, 0, 0, 0);
 
       let bal = initial;
@@ -562,6 +563,35 @@ export default function App() {
 
       let sim = simulate(days);
       let daily = sim.daily;
+      let today = new Date();
+      today.setHours(12, 0, 0, 0);
+      let monthStart = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        1,
+        12
+      );
+      let elapsedMonthDays = today.getDate() - 1;
+      let daysInMonth = new Date(
+        today.getFullYear(),
+        today.getMonth() + 1,
+        0
+      ).getDate();
+      let monthToDateSim = simulate(elapsedMonthDays, monthStart);
+      let fullMonthSim = simulate(daysInMonth - 1, monthStart);
+      let todayInterest =
+        monthToDateSim.daily[monthToDateSim.daily.length - 1].earned;
+      let cumulativeInterest = monthToDateSim.interest;
+      let projectedDailyInterest =
+        sim.daily[sim.daily.length - 1].earned;
+      let projectedMonthInterest = fullMonthSim.interest;
+
+      updateInterestProgress(
+        todayInterest,
+        cumulativeInterest,
+        projectedDailyInterest,
+        projectedMonthInterest
+      );
 
       model = sim;
 
@@ -792,6 +822,50 @@ export default function App() {
           hit = r;
           break;
         }
+      }
+
+      function updateInterestProgress(
+        todayInterest,
+        cumulativeInterest,
+        projectedDailyInterest,
+        projectedMonthInterest
+      ) {
+        $('monthlyInterestForecastValue').textContent =
+          compact(projectedMonthInterest);
+        $('monthlyInterestForecastDetail').textContent =
+          'Estimated for all ' + daysInMonth + ' days of this month.';
+
+        const progressItems = [
+          {
+            valueId: 'todayInterestValue',
+            barId: 'todayInterestBar',
+            detailId: 'todayInterestDetail',
+            value: todayInterest,
+            target: projectedDailyInterest,
+            targetLabel: 'end-of-plan daily estimate'
+          },
+          {
+            valueId: 'cumulativeInterestValue',
+            barId: 'cumulativeInterestBar',
+            detailId: 'cumulativeInterestDetail',
+            value: cumulativeInterest,
+            target: projectedMonthInterest,
+            targetLabel: 'projected interest for this month'
+          }
+        ];
+
+        progressItems.forEach(item => {
+          const percentage = item.target > 0
+            ? Math.min(100, (item.value / item.target) * 100)
+            : 0;
+          const bar = $(item.barId);
+
+          $(item.valueId).textContent = compact(item.value);
+          bar.setAttribute('aria-valuenow', percentage.toFixed(1));
+          bar.firstElementChild.style.width = percentage + '%';
+          $(item.detailId).textContent =
+            percentage.toFixed(1) + '% of your ' + item.targetLabel;
+        });
       }
 
       if (end >= goal) {
@@ -1270,6 +1344,8 @@ export default function App() {
               </div>
 
             </div>
+
+            <InterestProgress />
 
             <div className="panel">
 
