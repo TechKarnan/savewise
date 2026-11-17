@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Investments from './Investments.jsx';
+import Investments, { BankLogo, banks } from './Investments.jsx';
 import InterestProgress from './InterestProgress.jsx';
 
 export default function App() {
@@ -1078,9 +1078,11 @@ export default function App() {
             Your personal wealth dashboard
           </div>
 
-          <h1>
-            Small steps. Bigger possibilities.
-          </h1>
+          <div className="hero-title-row">
+            <h1>
+              Small steps. Bigger possibilities.
+            </h1>
+          </div>
 
           <p>
             See how your regular savings and
@@ -1427,71 +1429,39 @@ export default function App() {
               <div
                 className="savings-journey"
                 id="growthGarden"
-                aria-label="Animated team sending bundles of dollar bills from a company conveyor into a vault, where savings build and compound over time"
+                aria-label="Animated Axis, Canara, IDFC FIRST, and Kotak Mahindra bank branches transferring money into a savings vault"
               >
 
                 <div className="journey-heading">
                   <span className="journey-kicker">
-                    FROM HARD WORK TO WEALTH
+                    YOUR BANKS TO YOUR SAVINGS
                   </span>
 
                   <strong id="gardenMessage">
-                    Build the habit. Let your
-                    money get to work.
+                    Bring your bank savings together.
                   </strong>
 
                   <span id="gardenSub">
-                    Every contribution adds fuel
-                    to your future.
+                    Watch your money move into your savings vault.
                   </span>
                 </div>
 
                 <div className="growth-scene" aria-hidden="true">
-                  <div className="company-building">
-                    <div className="company-roof">
-                      <span>IDEAS INTO ACTION</span>
-                    </div>
-                    <div className="company-sign">OUR COMPANY</div>
-                    <div className="office-window office-window-one">
-                      <span>👩‍💻</span>
-                    </div>
-                    <div className="office-window office-window-two">
-                      <span>👨‍🔧</span>
-                    </div>
-                    <div className="office-window office-window-three">
-                      <span>👩‍💼</span>
-                    </div>
-                    <div className="company-door"></div>
+                  <div className="bank-network">
+                    {banks.map(bank => (
+                      <div className={`bank-branch bank-branch-${bank.id}`} key={bank.id}>
+                        <BankLogo bank={bank} />
+                        <svg viewBox="0 0 40 27" aria-hidden="true">
+                          <path d="M3 9 20 2l17 7H3Zm3 2v11m7-11v11m14-11v11m7-11v11M3 24h34" />
+                        </svg>
+                        <span>{bank.label}</span>
+                      </div>
+                    ))}
                   </div>
-
-                  <div className="company-caption">
-                    <strong>TEAM AT WORK</strong>
-                    <span>Creating value</span>
-                  </div>
-
-                  <div className="revenue-label">REVENUE</div>
-                  <div className="revenue-conveyor">
-                    <span className="conveyor-wheel"></span>
-                    <span className="conveyor-wheel"></span>
-                    <span className="conveyor-wheel"></span>
-                    <span className="conveyor-wheel"></span>
-                    <span className="conveyor-wheel"></span>
-                    <span className="conveyor-note note-one">
-                      <span>$</span>
-                      <span>$100</span>
-                      <span>$</span>
-                    </span>
-                    <span className="conveyor-note note-two">
-                      <span>$</span>
-                      <span>$100</span>
-                      <span>$</span>
-                    </span>
-                    <span className="conveyor-note note-three">
-                      <span>$</span>
-                      <span>$100</span>
-                      <span>$</span>
-                    </span>
-                  </div>
+                  <div className="bank-transfer-label">SAVINGS TRANSFER</div>
+                  <div className="transfer-note transfer-note-one"><span>$</span><span>$100</span><span>$</span></div>
+                  <div className="transfer-note transfer-note-two"><span>$</span><span>$100</span><span>$</span></div>
+                  <div className="transfer-note transfer-note-three"><span>$</span><span>$100</span><span>$</span></div>
 
                   <div className="vault-savings">
                     <div className="savings-amount" aria-label="Illustrative savings amount increasing from zero to one thousand dollars">

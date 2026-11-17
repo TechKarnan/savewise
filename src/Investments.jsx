@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 
-const banks = [
-  { id: 'axis', label: 'Axis Bank' },
-  { id: 'canara', label: 'Canara Bank' },
-  { id: 'idfc', label: 'IDFC FIRST Bank' },
-  { id: 'kotak', label: 'Kotak Mahindra Bank' }
+export const banks = [
+  { id: 'axis', label: 'Axis Bank', logo: '/bank-logos/axis-bank.svg' },
+  { id: 'canara', label: 'Canara Bank', logo: '/bank-logos/canara-bank.webp' },
+  { id: 'idfc', label: 'IDFC FIRST Bank', logo: '/bank-logos/idfc-first-bank.svg' },
+  { id: 'kotak', label: 'Kotak Mahindra Bank', logo: '/bank-logos/kotak-mahindra-bank.svg' }
 ];
+
+export function BankLogo({ bank }) {
+  return (
+    <span className={`bank-logo-frame bank-logo-frame-${bank.id}`} aria-hidden="true">
+      <img src={bank.logo} alt="" />
+    </span>
+  );
+}
 
 export default function Investments({ onTotalChange }) {
   const [values, setValues] = useState({
@@ -32,12 +40,9 @@ export default function Investments({ onTotalChange }) {
   return (
     <section className="investments" aria-labelledby="investmentsTitle">
       <div className="investments-heading">
-        <span className="investments-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M3 9h18L12 4 3 9Z" />
-            <path d="M5 10v8m4-8v8m6-8v8m4-8v8M3 20h18M4 18h16" />
-          </svg>
-        </span>
+        <div className="investments-bank-logos" aria-hidden="true">
+          {banks.map(bank => <BankLogo key={bank.id} bank={bank} />)}
+        </div>
         <h3 id="investmentsTitle">Investments by bank</h3>
       </div>
       <p className="investments-sub">Enter the amount you have in each bank.</p>
