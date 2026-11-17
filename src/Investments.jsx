@@ -1,10 +1,26 @@
 import React, { useState } from 'react';
 
 export const banks = [
-  { id: 'axis', label: 'Axis Bank', logo: '/bank-logos/axis-bank.svg' },
-  { id: 'canara', label: 'Canara Bank', logo: '/bank-logos/canara-bank.webp' },
-  { id: 'idfc', label: 'IDFC FIRST Bank', logo: '/bank-logos/idfc-first-bank.svg' },
-  { id: 'kotak', label: 'Kotak Mahindra Bank', logo: '/bank-logos/kotak-mahindra-bank.svg' }
+  {
+    id: 'axis',
+    label: 'Axis Bank',
+    logo: `${import.meta.env.BASE_URL}bank-logos/axis-bank.svg`
+  },
+  {
+    id: 'canara',
+    label: 'Canara Bank',
+    logo: `${import.meta.env.BASE_URL}bank-logos/canara-bank.webp`
+  },
+  {
+    id: 'idfc',
+    label: 'IDFC FIRST Bank',
+    logo: `${import.meta.env.BASE_URL}bank-logos/idfc-first-bank.svg`
+  },
+  {
+    id: 'kotak',
+    label: 'Kotak Mahindra Bank',
+    logo: `${import.meta.env.BASE_URL}bank-logos/kotak-mahindra-bank.svg`
+  }
 ];
 
 export function BankLogo({ bank }) {
