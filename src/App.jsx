@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Investments, { BankLogo, banks } from './Investments.jsx';
+import InvestmentJar from './InvestmentJar.jsx';
 import InterestProgress from './InterestProgress.jsx';
 
 export default function App() {
@@ -18,6 +19,25 @@ export default function App() {
       if (n >= 1e5) return '₹' + (n / 1e5).toFixed(2) + ' L';
       return fmt(n);
     };
+
+    function updateInvestmentJar(principal, interest) {
+      const total = principal + interest;
+      const jarFillPercent = total > 0 ? 72 : 0;
+      const principalLevel = total > 0
+        ? (principal / total) * jarFillPercent
+        : 0;
+      const interestLevel = total > 0
+        ? (interest / total) * jarFillPercent
+        : 0;
+
+      $('investmentJarPrincipal').textContent = compact(principal);
+      $('investmentJarInterest').textContent = compact(interest);
+      const jar = $('investmentJarGlass');
+      jar.style.setProperty('--jar-principal-level', principalLevel + '%');
+      jar.style.setProperty('--jar-interest-level', interestLevel + '%');
+      $('investmentJarNote').textContent =
+        'Jar layers match your total contributions and interest earned across the selected plan.';
+    }
 
     function updateTimeProgress() {
       const now = new Date();
@@ -637,6 +657,7 @@ export default function App() {
       let cumulativeInterest = monthToDateSim.interest;
       let projectedMonthInterest = fullMonthSim.interest;
 
+      updateInvestmentJar(sim.principal, sim.interest);
       updateInterestProgress(
         todayInterest,
         cumulativeInterest,
@@ -1374,6 +1395,8 @@ export default function App() {
               </div>
 
             </div>
+
+            <InvestmentJar />
 
             <InterestProgress />
 
