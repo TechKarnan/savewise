@@ -47,6 +47,15 @@ export default function App() {
         now.getDate()
       ).getTime();
       const elapsedToday = (now.getTime() - startOfDay) / 86_400_000;
+      const dayPercentage = Math.min(100, Math.max(0, elapsedToday * 100));
+      const vaultFill = $('vaultFill');
+      const vaultProgress = $('vaultDayProgress');
+      vaultFill.style.height = dayPercentage + '%';
+      vaultProgress.textContent = Math.round(dayPercentage) + '%';
+      vaultProgress.setAttribute(
+        'aria-label',
+        dayPercentage.toFixed(1) + '% of today elapsed'
+      );
       const startOfMonth = new Date(
         now.getFullYear(),
         now.getMonth(),
@@ -1489,11 +1498,11 @@ export default function App() {
                   </span>
 
                   <strong id="gardenMessage">
-                    Bring your bank savings together.
+                    Every saving brings your future closer.
                   </strong>
 
                   <span id="gardenSub">
-                    Watch your money move into your savings vault.
+                    Small, steady deposits can grow into something meaningful.
                   </span>
                 </div>
 
@@ -1510,30 +1519,25 @@ export default function App() {
                     ))}
                   </div>
                   <div className="bank-transfer-label">SAVINGS TRANSFER</div>
-                  <div className="transfer-note transfer-note-one"><span>$</span><span>$100</span><span>$</span></div>
-                  <div className="transfer-note transfer-note-two"><span>$</span><span>$100</span><span>$</span></div>
-                  <div className="transfer-note transfer-note-three"><span>$</span><span>$100</span><span>$</span></div>
+                  <svg className="savings-flow" viewBox="0 0 1000 168" preserveAspectRatio="none">
+                    <path className="flow-progress flow-bank-axis" pathLength="100" d="M235 46 L245 46" />
+                    <path className="flow-progress flow-bank-canara" pathLength="100" d="M253 46 L245 46" />
+                    <path className="flow-progress flow-bank-idfc" pathLength="100" d="M235 115 L245 115" />
+                    <path className="flow-progress flow-bank-kotak" pathLength="100" d="M253 115 L245 115" />
+                    <path className="flow-progress flow-collector" pathLength="100" d="M245 46 L245 115" />
+                    <path className="flow-progress flow-main" pathLength="100" d="M245 80.5 L735 80.5" />
+                  </svg>
 
                   <div className="vault-savings">
-                    <div className="savings-amount" aria-label="Illustrative savings amount increasing from zero to one thousand dollars">
-                      <span>$0</span>
-                      <span>$250</span>
-                      <span>$500</span>
-                      <span>$750</span>
-                      <span>$1,000</span>
+                    <div className="vault-day-progress" id="vaultDayProgress">
+                      0%
                     </div>
                     <div className="savings-vault">
                       <div className="vault-interior">
-                        <span className="stored-bundle stored-bundle-one"></span>
-                        <span className="stored-bundle stored-bundle-two"></span>
-                        <span className="stored-bundle stored-bundle-three"></span>
-                        <span className="stored-bundle stored-bundle-four"></span>
+                        <div className="vault-fill" id="vaultFill"></div>
+                        <div className="vault-glass-glint"></div>
                       </div>
-                      <div className="vault-slot"></div>
-                      <div className="vault-door">
-                        <span>○</span>
-                      </div>
-                      <span className="vault-handle"></span>
+                      <div className="vault-rim"></div>
                     </div>
                     <strong className="vault-label">SAVINGS VAULT</strong>
                   </div>
@@ -1546,7 +1550,7 @@ export default function App() {
 
                 <div className="journey-caption">
                   <span className="journey-live-dot"></span>
-                  Earn revenue. Save consistently. Let compounding work.
+                  Keep showing up. Your future self will thank you.
                 </div>
 
               </div>
