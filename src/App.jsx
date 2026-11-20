@@ -101,9 +101,84 @@ export default function App() {
       });
     }
 
+    function updateInterestCalendar(monthToDateSim, today, cumulativeInterest) {
+      const monthTitle = $('interestCalendarMonth');
+      const total = $('interestCalendarTotal');
+      const daysWithGrowth = $('interestCalendarGrowthDays');
+      const calendarDays = $('interestCalendarDays');
+      const year = today.getFullYear();
+      const month = today.getMonth();
+      const dayCount = new Date(year, month + 1, 0).getDate();
+      const earnedByDate = new Map(
+        monthToDateSim.daily
+          .filter(row => row.earned > 0)
+          .map(row => [row.date.getDate(), row.earned])
+      );
+      const accruedDays = earnedByDate.size;
+
+      monthTitle.textContent = today.toLocaleDateString('en-IN', {
+        month: 'long',
+        year: 'numeric'
+      });
+      total.textContent = compact(cumulativeInterest);
+      daysWithGrowth.textContent =
+        accruedDays + (accruedDays === 1 ? ' growth day' : ' growth days');
+
+      const cells = [];
+      for (let blank = 0; blank < new Date(year, month, 1).getDay(); blank++) {
+        const spacer = document.createElement('span');
+        spacer.className = 'interest-calendar-spacer';
+        spacer.setAttribute('role', 'presentation');
+        spacer.setAttribute('aria-hidden', 'true');
+        cells.push(spacer);
+      }
+
+      for (let date = 1; date <= dayCount; date++) {
+        const cell = document.createElement('span');
+        const hasAccruedInterest = earnedByDate.has(date);
+        const isToday = date === today.getDate();
+        cell.className = [
+          'interest-calendar-day',
+          hasAccruedInterest ? 'has-interest' : '',
+          isToday ? 'is-today' : '',
+          date > today.getDate() ? 'is-future' : ''
+        ].filter(Boolean).join(' ');
+        cell.setAttribute('role', 'listitem');
+        cell.setAttribute(
+          'aria-label',
+          date + ': ' +
+            (hasAccruedInterest
+              ? 'estimated interest accrued'
+              : isToday
+                ? 'today, no estimated interest accrued yet'
+                : date > today.getDate()
+                  ? 'upcoming'
+                  : 'no estimated interest accrued')
+        );
+
+        const number = document.createElement('span');
+        number.className = 'interest-calendar-date';
+        number.textContent = String(date);
+        cell.appendChild(number);
+
+        if (hasAccruedInterest) {
+          const check = document.createElement('span');
+          check.className = 'interest-calendar-check';
+          check.setAttribute('aria-hidden', 'true');
+          check.textContent = '✓';
+          cell.appendChild(check);
+        }
+
+        cells.push(cell);
+      }
+
+      calendarDays.replaceChildren(...cells);
+    }
+
     let interval = 'monthly';
     let model = null;
     let dirty = false;
+    let calendarDateKey = '';
 
     const inputs = [
       'initial',
@@ -647,6 +722,11 @@ export default function App() {
       let daily = sim.daily;
       let today = new Date();
       today.setHours(12, 0, 0, 0);
+      calendarDateKey = [
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate()
+      ].join('-');
       let monthStart = new Date(
         today.getFullYear(),
         today.getMonth(),
@@ -672,6 +752,7 @@ export default function App() {
         cumulativeInterest,
         projectedMonthInterest
       );
+      updateInterestCalendar(monthToDateSim, today, cumulativeInterest);
 
       model = sim;
 
@@ -1110,10 +1191,16 @@ export default function App() {
     $('calculationStatus').textContent =
       'Showing default results. Change any input and press Calculate savings to recalculate.';
 
-    const interestProgressTimer = window.setInterval(
-      updateTimeProgress,
-      60_000
-    );
+    const interestProgressTimer = window.setInterval(() => {
+      updateTimeProgress();
+      const now = new Date();
+      const currentCalendarDate = [
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate()
+      ].join('-');
+      if (currentCalendarDate !== calendarDateKey && !dirty) render();
+    }, 60_000);
 
     return () => window.clearInterval(interestProgressTimer);
   }, []);
@@ -1162,6 +1249,38 @@ export default function App() {
               Adjust your numbers to explore
               what’s possible.
             </p>
+
+            <section
+              className="interest-calendar"
+              aria-label="Estimated interest calendar"
+            >
+              <div className="interest-calendar-heading">
+                <div>
+                  <span className="interest-calendar-kicker">
+                    YOUR SAVINGS STREAK
+                  </span>
+                  <h3 id="interestCalendarMonth"></h3>
+                </div>
+                <span className="interest-calendar-growth" id="interestCalendarGrowthDays"></span>
+              </div>
+              <div className="interest-calendar-summary">
+                <strong id="interestCalendarTotal">₹0</strong>
+                <span>estimated interest earned this month</span>
+              </div>
+              <div className="interest-calendar-weekdays" aria-hidden="true">
+                <span>S</span><span>M</span><span>T</span><span>W</span>
+                <span>T</span><span>F</span><span>S</span>
+              </div>
+              <div
+                className="interest-calendar-days"
+                id="interestCalendarDays"
+                role="list"
+                aria-label="Current month interest accrual"
+              ></div>
+              <p className="interest-calendar-note">
+                ✓ marks days your plan estimates interest growth. Actual bank credit dates may vary.
+              </p>
+            </section>
 
             <Investments
               onTotalChange={total => {
