@@ -105,14 +105,13 @@ main{max-width:1180px;margin:-1px auto 50px;padding:22px 18px}.grid{display:grid
 .bank-branch>span:last-child{overflow:hidden;max-width:100%;color:#526b59;font-size:6px;font-weight:800;text-overflow:ellipsis;white-space:nowrap}
 .bank-transfer-label{position:absolute;z-index:3;top:36px;left:60%;padding:3px 6px;border:1px solid #cfe4d4;border-radius:12px;background:#f3faf5;color:#43856a;font-size:7px;font-weight:900;letter-spacing:.4px;transform:translateX(-50%);animation:interestGlow 3s ease-in-out infinite}
 .savings-flow{position:absolute;z-index:1;inset:0;width:100%;height:100%;overflow:visible}
-.flow-progress{fill:none;stroke:#1da66e;stroke-width:3;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;animation:drawSavingsFlow 8s linear infinite}
+.flow-progress{fill:none;stroke:#1da66e;stroke-width:3;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;vector-effect:non-scaling-stroke;animation:drawSavingsFlow 8s linear infinite}
 .flow-bank-axis{animation-delay:0s}
 .flow-bank-canara{animation-delay:.08s}
 .flow-bank-idfc{animation-delay:.16s}
 .flow-bank-kotak{animation-delay:.24s}
 .flow-collector{animation-delay:.32s}
 .flow-main{animation-delay:.48s}
-.flow-junction{fill:none;stroke:#438b60;stroke-width:3.5;stroke-linecap:round}
 .vault-savings{position:absolute;z-index:4;left:78%;top:22px;width:90px;height:112px;transform:translateX(-50%)}
 .vault-day-progress{position:absolute;top:0;left:0;right:0;height:19px;display:grid;place-items:center;color:#087d59;font-size:10px;font-weight:900;letter-spacing:.2px}
 .savings-vault{position:absolute;left:4px;right:14px;bottom:17px;height:76px;border:2px solid #668a73;border-radius:8px;background:linear-gradient(145deg,#e7f7ebaa,#b8dec899);box-shadow:inset 0 0 0 2px #ffffffaa,0 4px 0 #829e88,0 7px 10px #263e3020}
