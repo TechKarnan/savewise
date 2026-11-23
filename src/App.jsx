@@ -1608,7 +1608,7 @@ export default function App() {
               <div
                 className="savings-journey"
                 id="growthGarden"
-                aria-label="Animated Axis, Canara, IDFC FIRST, and Kotak Mahindra bank branches transferring money into a savings vault"
+                aria-label="Animated Axis, Canara, IDFC FIRST, Kotak Mahindra, and Ujjivan Small Finance bank branches transferring money into a savings vault"
               >
 
                 <div className="journey-heading">
@@ -1638,13 +1638,19 @@ export default function App() {
                     ))}
                   </div>
                   <div className="bank-transfer-label">SAVINGS TRANSFER</div>
-                  <svg className="savings-flow" viewBox="0 0 1000 168" preserveAspectRatio="none">
-                    <path className="flow-progress flow-bank-axis" pathLength="100" d="M235 46 L245 46" />
-                    <path className="flow-progress flow-bank-canara" pathLength="100" d="M253 46 L245 46" />
-                    <path className="flow-progress flow-bank-idfc" pathLength="100" d="M235 115 L245 115" />
-                    <path className="flow-progress flow-bank-kotak" pathLength="100" d="M253 115 L245 115" />
-                    <path className="flow-progress flow-collector" pathLength="100" d="M245 46 L245 115" />
-                    <path className="flow-progress flow-main" pathLength="100" d="M245 80.5 L735 80.5" />
+                  <svg className="savings-flow" viewBox="0 0 1000 216" preserveAspectRatio="none">
+                    <path className="flow-track" d="M240.5 46 L245 46 M249.5 46 L245 46" />
+                    <path className="flow-track" d="M240.5 111 L245 111 M249.5 111 L245 111" />
+                    <path className="flow-track" d="M240.5 176 L245 176" />
+                    <path className="flow-track flow-collector-track" d="M245 46 L245 176" />
+                    <path className="flow-track flow-main-track" d="M245 111 L735 111" />
+                    <path className="flow-progress flow-bank-axis" pathLength="100" d="M240.5 46 L245 46" />
+                    <path className="flow-progress flow-bank-canara" pathLength="100" d="M249.5 46 L245 46" />
+                    <path className="flow-progress flow-bank-idfc" pathLength="100" d="M240.5 111 L245 111" />
+                    <path className="flow-progress flow-bank-kotak" pathLength="100" d="M249.5 111 L245 111" />
+                    <path className="flow-progress flow-bank-ujjivan" pathLength="100" d="M240.5 176 L245 176" />
+                    <path className="flow-progress flow-collector" pathLength="100" d="M245 46 L245 176" />
+                    <path className="flow-progress flow-main" pathLength="100" d="M245 111 L735 111" />
                   </svg>
 
                   <div className="vault-savings">

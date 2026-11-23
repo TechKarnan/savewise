@@ -29,13 +29,16 @@ main{max-width:1180px;margin:-1px auto 50px;padding:22px 18px}.grid{display:grid
 .investments{margin:0 0 18px;padding:14px;border:1px solid #e7edf4;border-radius:12px;background:#f8fafc}
 .investments-heading{display:flex;align-items:center;gap:8px}
 .investments h3{margin:0;font-size:13px;color:#24354a}
-.investments-bank-logos{display:flex;align-items:center;gap:3px;flex:none}
+.investments-bank-logos{display:flex;align-items:center;gap:2px;flex:none}
 .bank-logo-frame{display:grid;place-items:center;flex:none;width:36px;height:21px;padding:2px;border-radius:4px;background:#fff;box-shadow:0 1px 3px #1723381c}
 .bank-logo-frame img{display:block;max-width:100%;max-height:100%;object-fit:contain}
+.investments-bank-logos .bank-logo-frame{width:26px}
+.investments-bank-logos .bank-logo-frame-ujjivan{width:42px}
 .bank-logo-frame-axis{background:#97144d}
 .bank-logo-frame-canara{background:#004b7a}
 .bank-logo-frame-idfc{background:#fff}
 .bank-logo-frame-kotak{background:#fff}
+.bank-logo-frame-ujjivan{background:#fff}
 .investments-sub{margin:3px 0 12px;color:#718096;font-size:11px}
 .investment-fields{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
 .investment-field{margin-bottom:10px}
@@ -96,23 +99,27 @@ main{max-width:1180px;margin:-1px auto 50px;padding:22px 18px}.grid{display:grid
 .journey-kicker{font-size:9px;letter-spacing:1.6px;font-weight:900;color:#4a9873}
 .journey-heading strong{font-size:15px;line-height:1.35;color:#234b38}
 .journey-heading>span:last-child{font-size:11px;color:#688273}
-.growth-scene{height:168px;position:relative;margin-top:4px;overflow:hidden}
+.growth-scene{height:216px;position:relative;margin-top:4px;overflow:hidden}
 .growth-ground{position:absolute;bottom:20px;left:2%;right:2%;height:2px;border-radius:50%;background:#b9cbb5}
-.bank-network{position:absolute;z-index:2;top:18px;left:2%;width:45%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:16px;row-gap:12px}
+.bank-network{position:absolute;z-index:2;top:18px;left:2%;width:45%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:2%;row-gap:8px}
 .bank-branch{position:relative;min-width:0;height:57px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;border:1px solid #dce8df;border-radius:10px;background:linear-gradient(145deg,#fff 0%,#f8fcf9 100%);box-shadow:0 3px 9px #2036260d}
 .bank-branch .bank-logo-frame{position:absolute;top:3px;left:4px;width:36px;height:15px;padding:2px;border-radius:3px}
+.bank-branch-ujjivan .bank-logo-frame{width:60px}
 .bank-branch svg{width:33px;height:22px;fill:#dcebdd;stroke:#66806b;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .bank-branch>span:last-child{overflow:hidden;max-width:100%;color:#526b59;font-size:6px;font-weight:800;text-overflow:ellipsis;white-space:nowrap}
 .bank-transfer-label{position:absolute;z-index:3;top:36px;left:60%;padding:3px 6px;border:1px solid #cfe4d4;border-radius:12px;background:#f3faf5;color:#43856a;font-size:7px;font-weight:900;letter-spacing:.4px;transform:translateX(-50%);animation:interestGlow 3s ease-in-out infinite}
 .savings-flow{position:absolute;z-index:1;inset:0;width:100%;height:100%;overflow:visible}
+.flow-track{fill:none;stroke:#b7d8c6;stroke-width:2;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.flow-track.flow-collector-track,.flow-track.flow-main-track{stroke-width:3}
 .flow-progress{fill:none;stroke:#1da66e;stroke-width:3;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;vector-effect:non-scaling-stroke;animation:drawSavingsFlow 8s linear infinite}
 .flow-bank-axis{animation-delay:0s}
 .flow-bank-canara{animation-delay:.08s}
 .flow-bank-idfc{animation-delay:.16s}
 .flow-bank-kotak{animation-delay:.24s}
-.flow-collector{animation-delay:.32s}
-.flow-main{animation-delay:.48s}
-.vault-savings{position:absolute;z-index:4;left:78%;top:22px;width:90px;height:112px;transform:translateX(-50%)}
+.flow-bank-ujjivan{animation-delay:.32s}
+.flow-collector{animation-delay:.4s}
+.flow-main{animation-delay:.56s}
+.vault-savings{position:absolute;z-index:4;left:78%;top:calc(50% - 56px);width:90px;height:112px;transform:translateX(-50%)}
 .vault-day-progress{position:absolute;top:0;left:0;right:0;height:19px;display:grid;place-items:center;color:#087d59;font-size:10px;font-weight:900;letter-spacing:.2px}
 .savings-vault{position:absolute;left:4px;right:14px;bottom:17px;height:76px;border:2px solid #668a73;border-radius:8px;background:linear-gradient(145deg,#e7f7ebaa,#b8dec899);box-shadow:inset 0 0 0 2px #ffffffaa,0 4px 0 #829e88,0 7px 10px #263e3020}
 .vault-interior{position:absolute;inset:6px;overflow:hidden;border:1px solid #8eb69b;border-radius:3px 3px 5px 5px;background:linear-gradient(180deg,#f8fff966,#d3f0dc88)}
@@ -131,7 +138,7 @@ main{max-width:1180px;margin:-1px auto 50px;padding:22px 18px}.grid{display:grid
 @keyframes interestGlow{0%,100%{transform:translate(-50%,3px);opacity:.65}50%{transform:translate(-50%,-4px);opacity:1}}
 @keyframes sparkle{0%,100%{opacity:.3;transform:scale(.7)}50%{opacity:1;transform:scale(1.2)}}
 @keyframes livePulse{0%,100%{box-shadow:0 0 0 3px #27a46f20}50%{box-shadow:0 0 0 6px #27a46f10}}
-@media(max-width:480px){.savings-journey{padding:13px 12px 9px}.journey-heading strong{font-size:13px}.growth-scene{height:155px}.bank-network{top:20px;left:1%;width:47%;column-gap:10px;row-gap:10px}.bank-branch{height:52px}.bank-transfer-label{left:60%;font-size:6px}.vault-savings{left:78%;top:13px;transform:translateX(-50%) scale(.82);transform-origin:top center}.interest-loop{left:78%;right:auto;font-size:6px}}
+@media(max-width:480px){.savings-journey{padding:13px 12px 9px}.journey-heading strong{font-size:13px}.growth-scene{height:216px}.bank-network{top:20px;left:1%;width:47%;column-gap:2%;row-gap:13px}.bank-branch{height:52px}.bank-branch-ujjivan .bank-logo-frame{width:54px}.bank-transfer-label{left:60%;font-size:6px}.vault-savings{left:78%;top:calc(50% - 56px);transform:translateX(-50%) scale(.82);transform-origin:top center}.interest-loop{left:78%;right:auto;font-size:6px}}
 @media(prefers-reduced-motion:reduce){.savings-journey *{animation:none!important}.flow-progress{stroke-dashoffset:0}.vault-fill{transition:none}}
 .legend{display:flex;gap:15px;flex-wrap:wrap;font-size:11px;color:#64748b;margin-top:8px}.dot{display:inline-block;width:8px;height:8px;border-radius:3px;margin-right:5px}.goal-row{display:flex;justify-content:space-between;gap:10px;align-items:center}.goal-row strong{font-size:23px}.goal-row small{color:var(--muted)}.progress{height:11px;background:#edf1f6;border-radius:20px;overflow:hidden;margin:14px 0 9px}.progress>div{height:100%;width:0;background:linear-gradient(90deg,#16a477,#5bd6a6);border-radius:20px;transition:width .35s}.goal-foot{display:flex;justify-content:space-between;gap:10px;font-size:11px;color:var(--muted)}.milestones{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.mile{padding:7px 10px;border-radius:9px;background:#f4f6fa;color:#8a96a8;font-size:11px;font-weight:700}.mile.done{background:#e1f7ed;color:#087d59}.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}.pill{font-size:11px;color:#087d59;background:#e2f7ed;border-radius:20px;padding:5px 9px;font-weight:800}.footer{text-align:center;color:#8793a5;font-size:11px;margin:20px 0 0}.empty{color:var(--muted);font-size:12px;text-align:center;padding:25px}
 @media(max-width:900px){.grid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}}

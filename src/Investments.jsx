@@ -20,6 +20,11 @@ export const banks = [
     id: 'kotak',
     label: 'Kotak Mahindra Bank',
     logo: `${import.meta.env.BASE_URL}bank-logos/kotak-mahindra-bank.svg`
+  },
+  {
+    id: 'ujjivan',
+    label: 'Ujjivan Small Finance Bank',
+    logo: `${import.meta.env.BASE_URL}bank-logos/ujjivan-small-finance-bank.svg`
   }
 ];
 
@@ -36,7 +41,8 @@ export default function Investments({ onTotalChange }) {
     axis: '0',
     canara: '0',
     idfc: '0',
-    kotak: '0'
+    kotak: '0',
+    ujjivan: '0'
   });
 
   function updateBank(id, rawValue) {
